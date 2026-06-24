@@ -55,7 +55,45 @@ function buildSidebar(months, monthFiles) {
   }))
 }
 
+function latestArticle(months, monthFiles) {
+  for (const month of months) {
+    const files = monthFiles[month]
+    if (files.length > 0) {
+      const slug = files[0].replace(/\.md$/, '')
+      return { month, slug, date: extractDate(files[0]) }
+    }
+  }
+  return null
+}
+
+function buildNewsIndexMarkdown(months, monthFiles) {
+  const lines = ['# 归档', '']
+
+  let total = 0
+  for (const month of months) {
+    const files = monthFiles[month]
+    if (files.length === 0) continue
+    lines.push(`## ${month}`, '')
+    for (const file of files) {
+      const slug = file.replace(/\.md$/, '')
+      const date = extractDate(file)
+      lines.push(`- [${date}](/news/${month}/${slug})`)
+      total++
+    }
+    lines.push('')
+  }
+
+  if (total === 0) {
+    lines.push('暂无日报，请先在仓库根目录生成 `YYYY-MM/ai-news-YYYY-MM-DD.md`')
+  }
+
+  return lines.join('\n')
+}
+
 function buildIndexMarkdown(months, monthFiles) {
+  const latest = latestArticle(months, monthFiles)
+  const latestLink = latest ? `/news/${latest.month}/${latest.slug}` : '/news/'
+
   const lines = [
     '---',
     'layout: home',
@@ -66,7 +104,7 @@ function buildIndexMarkdown(months, monthFiles) {
     '  actions:',
     '    - theme: brand',
     '      text: 阅读最新日报',
-    '      link: /news/',
+    `      link: ${latestLink}`,
     'features:',
     '  - title: 模型与产品',
     '    details: OpenAI、Anthropic、Google 等官方来源优先核验',
@@ -123,6 +161,11 @@ function main() {
   writeSidebarModule(sidebar)
 
   fs.writeFileSync(path.join(docsRoot, 'index.md'), buildIndexMarkdown(months, monthFiles), 'utf8')
+  fs.writeFileSync(
+    path.join(newsRoot, 'index.md'),
+    buildNewsIndexMarkdown(months, monthFiles),
+    'utf8',
+  )
 
   const total = months.reduce((n, m) => n + monthFiles[m].length, 0)
   console.log(`Synced ${total} article(s) from ${months.length} month folder(s).`)
