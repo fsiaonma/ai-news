@@ -1,11 +1,17 @@
 {
   "name": "ai-news",
   "version": "1.0.0",
-  "description": "",
-  "main": "",
+  "description": "AI 资讯日报 — 静态站点",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "sync": "node scripts/sync-news.mjs",
+    "dev": "npm run sync && vitepress dev docs",
+    "build": "npm run sync && vitepress build docs",
+    "preview": "vitepress preview docs"
   },
   "author": "哲玄",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "vitepress": "^1.6.3"
+  }
 }

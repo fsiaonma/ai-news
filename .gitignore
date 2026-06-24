@@ -1,2 +1,8 @@
 .agents/
 .cursor/
+node_modules/
+docs/.vitepress/dist/
+docs/.vitepress/cache/
+docs/news/
+docs/index.md
+docs/.vitepress/sidebar.generated.mjs
