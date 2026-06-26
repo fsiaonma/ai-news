@@ -15,7 +15,7 @@ description: "阶段五 Lab：LangChain.js、Vercel AI SDK、LangGraph 与 Trace
 
 阶段五做**工程化升华**：不是重学框架，而是把前四阶段产物迁移到可维护架构，并可观测、可选型。
 
-## 教程正文
+## 章节正文
 
 ### 第 1 步：第 8 周任务清单
 

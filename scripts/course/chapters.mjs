@@ -21,6 +21,23 @@ export function moduleChapterNumber(dir) {
   return m ? Number(m[1]) : 0
 }
 
+const MODULE_ICONS = {
+  '00-prereq': '🐍',
+  '01-agent-cognition': '🧠',
+  '02-api-prompt': '⚡',
+  '03-tools-mcp': '🔧',
+  '04-rag-memory': '📚',
+  '05-agent-engineering': '🤖',
+  '06-frameworks': '🏗️',
+  '07-production': '📊',
+  '08-agent-projects': '🎯',
+  '09-agent-ide': '💻',
+}
+
+export function moduleIcon(dir) {
+  return MODULE_ICONS[dir] ?? '📘'
+}
+
 function listLessonSlugs(moduleDir) {
   if (!fs.existsSync(moduleDir)) {
     return []

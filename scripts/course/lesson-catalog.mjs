@@ -7,6 +7,10 @@ export const LESSON_CATALOG = {
   '00-prereq/0.2-深度学习数学.md': '深度学习数学',
   '00-prereq/0.3-nlp-语言模型发展.md': 'NLP 与语言模型',
   '00-prereq/0.4-训练-sft-rlhf.md': '预训练 · SFT · RLHF',
+  '00-prereq/0.5-微调基础.md': '微调基础',
+  '00-prereq/0.6-轻量化微调.md': 'LoRA 微调',
+  '00-prereq/0.7-开源模型行业定制.md': '行业定制',
+  '00-prereq/0.8-训练与推理优化.md': '训练推理优化',
 
   '01-agent-cognition/1.1-ai-ml-dl-llm.md': 'AI · ML · LLM',
   '01-agent-cognition/1.3-transformer-token-embedding.md': 'Transformer 与 Embedding',
@@ -77,10 +81,11 @@ export const LESSON_CATALOG = {
   '08-agent-projects/8.5-留学与金融顾问.md': '咨询 Agent',
   '08-agent-projects/8.6-auto-gpt.md': 'Auto-GPT',
 
-  '09-fine-tuning/9.1-微调基础.md': '微调基础',
-  '09-fine-tuning/9.2-轻量化微调.md': 'LoRA 微调',
-  '09-fine-tuning/9.3-开源模型行业定制.md': '行业定制',
-  '09-fine-tuning/9.4-训练与推理优化.md': '训练推理优化',
+  '09-agent-ide/9.1-agent-ide-概览.md': 'Agent IDE 全景',
+  '09-agent-ide/9.2-cursor-配置.md': 'Cursor 配置',
+  '09-agent-ide/9.3-claude-code-配置.md': 'Claude Code 配置',
+  '09-agent-ide/9.4-codex-配置.md': 'Codex 配置',
+  '09-agent-ide/9.5-trae-配置.md': 'Trae 配置',
 }
 
 export function lessonIdFromSlug(slug) {

@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { loadCourseChapters } from './course/chapters.mjs'
+import { loadCourseChapters, moduleIcon } from './course/chapters.mjs'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const websiteRoot = path.join(root, 'website')
@@ -55,6 +55,16 @@ function stripMetaBlockquote(content) {
   return content.replace(/^> 截至 [\d-]+。[^\n]*\n\n?/m, '')
 }
 
+/** 去掉开源栏目的「来源入口」与文末「来源索引」 */
+function cleanNewsMarkdown(content) {
+  let body = content
+  body = body.replace(/^> 来源入口：[^\n]*\n\n?/gm, '')
+  body = body.replace(/^- (?:\*\*)?来源入口(?:\*\*)?：[^\n]*\n/gm, '')
+  body = body.replace(/\r?\n## 来源索引\r?\n[\s\S]*$/m, '')
+  body = body.replace(/\n{3,}/g, '\n\n')
+  return body.trimEnd() + '\n'
+}
+
 /** 资讯条目 `- **标签：**` 与 `- 标签：` 转 HTML strong，避免中文冒号后 ** 不渲染 */
 function boldNewsFieldLabels(content) {
   let result = content.replace(
@@ -82,7 +92,9 @@ function copyMonthNews(month) {
   for (const file of files) {
     const src = path.join(srcDir, file)
     const dest = path.join(destDir, file)
-    const content = boldNewsFieldLabels(stripMetaBlockquote(fs.readFileSync(src, 'utf8')))
+    const content = boldNewsFieldLabels(
+      cleanNewsMarkdown(stripMetaBlockquote(fs.readFileSync(src, 'utf8'))),
+    )
     fs.writeFileSync(dest, content, 'utf8')
   }
 
@@ -156,6 +168,9 @@ function buildNewsIndexMarkdown(months, monthFiles) {
     lines.push('暂无日报，请先在 `news/YYYY-MM/` 下生成 `ai-news-YYYY-MM-DD.md`')
   }
 
+  lines.push('')
+  lines.push('')
+
   return lines.join('\n')
 }
 
@@ -169,11 +184,15 @@ function buildCourseChaptersHtml() {
       : link(`/course/${ch.dir}/`)
     const desc = ch.summary ? `${ch.lessonCount} 课 · ${ch.summary}` : `${ch.lessonCount} 课`
 
+    const icon = moduleIcon(ch.dir)
+
     lines.push('<div class="course-part">')
-    lines.push(`<div class="course-part-label">${ch.label}</div>`)
+    lines.push(
+      `<div class="course-part-label"><span class="course-part-icon" aria-hidden="true">${icon}</span>${ch.label}</div>`,
+    )
     lines.push('<div class="course-part-modules">')
     lines.push(
-      `<a class="course-module" href="${href}"><span class="course-module-name">${ch.firstTitle}</span><span class="course-module-desc">${desc}</span></a>`,
+      `<a class="course-module" href="${href}"><span class="course-module-head"><span class="course-module-icon" aria-hidden="true">${icon}</span><span class="course-module-name">${ch.firstTitle}</span></span><span class="course-module-desc">${desc}</span></a>`,
     )
     lines.push('</div>')
     lines.push('</div>')
@@ -258,7 +277,7 @@ function buildIndexMarkdown(months, monthFiles) {
   lines.push('<section class="home-panel">')
   lines.push('<div class="home-panel-head">')
   lines.push('<div>')
-  lines.push('<h2>AI 教程</h2>')
+  lines.push('<h2>Agent教程</h2>')
   lines.push('<p class="home-panel-desc">AI Agent 系统课 · 从 API 到可上线 Agent</p>')
   lines.push('</div>')
   lines.push(`<a class="home-more" href="${link('/course/')}">查看课程</a>`)

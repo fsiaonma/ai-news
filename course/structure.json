@@ -10,7 +10,7 @@
         {
           "dir": "00-prereq",
           "short": "前置补充",
-          "summary": "Python、数学、NLP 史、训练概览"
+          "summary": "Python、数学、NLP 史、训练概览、微调选修"
         }
       ]
     },
@@ -84,13 +84,13 @@
     },
     {
       "id": "part-5",
-      "title": "选修",
-      "summary": "模型定制，非 Agent 主线必修",
+      "title": "阶段五 · 工具实践",
+      "summary": "常用 Agent IDE 配置与工作流",
       "modules": [
         {
-          "dir": "09-fine-tuning",
-          "short": "模型微调",
-          "summary": "LoRA、行业定制、推理优化"
+          "dir": "09-agent-ide",
+          "short": "Agent 工具实践",
+          "summary": "Cursor、Claude Code、Codex、Trae 与 Rule / Skill 配置"
         }
       ]
     }

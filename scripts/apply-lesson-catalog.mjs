@@ -100,7 +100,7 @@ const COURSE_HOME_LESSONS = [
   '06-frameworks/6.1-langchain基本介绍.md',
   '07-production/7.1-eval与回归测试.md',
   '08-agent-projects/8.1-智能翻译助手.md',
-  '09-fine-tuning/9.1-微调基础.md',
+  '09-agent-ide/9.1-agent-ide-概览.md',
 ]
 
 function updateCourseHomeIndex() {

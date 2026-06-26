@@ -25,3 +25,9 @@ website/course/
 website/index.md
 website/.vitepress/sidebar.generated.mjs
 website/.vitepress/sidebar.course.mjs
+
+# ── 关于我们：源文件在 about/（需提交）
+#    构建时 sync-about.mjs 复制到 website/about/ 与 website/public/about/
+about/members.generated.json
+website/about/
+website/public/about/
