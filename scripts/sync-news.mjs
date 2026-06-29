@@ -55,12 +55,13 @@ function stripMetaBlockquote(content) {
   return content.replace(/^> 截至 [\d-]+。[^\n]*\n\n?/m, '')
 }
 
-/** 去掉开源栏目的「来源入口」与文末「来源索引」 */
+/** 去掉已废弃章节与冗余 meta */
 function cleanNewsMarkdown(content) {
   let body = content
   body = body.replace(/^> 来源入口：[^\n]*\n\n?/gm, '')
   body = body.replace(/^- (?:\*\*)?来源入口(?:\*\*)?：[^\n]*\n/gm, '')
-  body = body.replace(/\r?\n## 来源索引\r?\n[\s\S]*$/m, '')
+  body = body.replace(/\r?\n## (?:来源索引|来源说明|后续关注|摘要)\r?\n[\s\S]*?(?=\r?\n## |\r?\n$|$)/gm, '')
+  body = body.replace(/\r?\n## (?:来源索引|来源说明|后续关注)\r?\n[\s\S]*$/m, '')
   body = body.replace(/\n{3,}/g, '\n\n')
   return body.trimEnd() + '\n'
 }
@@ -140,7 +141,7 @@ function buildNewsIndexMarkdown(months, monthFiles) {
     '',
     '# AI资讯',
     '',
-    '<p class="page-lead">每日 AI 模型、产品、论文与行业动态摘要。</p>',
+    '<p class="page-lead">每日 AI 模型、产品、论文、就业趋势与行业动态摘要。</p>',
     '',
   ]
 
@@ -212,6 +213,10 @@ const HOME_PILLARS = [
     desc: '整理 arXiv 论文速递与 GitHub Trending 热门仓库，结合 HelloGitHub 等榜单解读开源生态中的可复现实验与工程进展',
   },
   {
+    title: '就业趋势',
+    desc: '追踪 AI 对程序员岗位需求、招聘 HC、裁员与技能栈/薪资变化，优先引用 Indeed Hiring Lab、LinkedIn、Layoffs.fyi 等可核验来源',
+  },
+  {
     title: '行业动态',
     desc: '汇总 AI 监管政策、投融资事件、模型安全议题与主流 benchmark 排名变化，按日归档形成可检索的行业快照',
   },
@@ -230,7 +235,7 @@ function buildIndexMarkdown(months, monthFiles) {
     '<div class="home-wrap">',
     '<header class="home-hero">',
     '<p class="home-eyebrow">AI 资讯日报</p>',
-    '<h1 class="home-headline">每日 AI 模型、产品、论文与行业动态</h1>',
+    '<h1 class="home-headline">每日 AI 模型、产品、论文、就业与行业动态</h1>',
     '<p class="home-sub">联网检索 · 来源核验 · 按日归档</p>',
     '<div class="home-actions">',
     `<a class="home-btn home-btn--primary" href="${latestLink}">阅读最新日报</a>`,

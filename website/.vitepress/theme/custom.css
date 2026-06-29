@@ -689,6 +689,107 @@ body {
   color: var(--link);
 }
 
+/* 资讯日报条目 */
+.vp-doc .news-item {
+  position: relative;
+  margin-top: var(--space-6);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border);
+}
+
+.vp-doc h2 + .news-item {
+  margin-top: var(--space-4);
+  padding-top: 0;
+  border-top: none;
+}
+
+.vp-doc .news-item > h3 {
+  margin: 0 8rem 0 0;
+  padding: 0;
+  font-size: 17px;
+  line-height: 1.4;
+}
+
+.vp-doc .news-item .news-item-date {
+  position: absolute;
+  top: var(--space-4);
+  right: 0;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+  text-align: right;
+  white-space: nowrap;
+  color: var(--text-2);
+  font-variant-numeric: tabular-nums;
+  cursor: default;
+}
+
+.vp-doc h2 + .news-item .news-item-date {
+  top: 0;
+}
+
+.vp-doc .news-item .news-item-summary {
+  margin: var(--space-3) 0 0;
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--text);
+}
+
+.vp-doc .news-item .news-item-source {
+  margin: var(--space-3) 0 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-2);
+}
+
+.vp-doc .news-item .news-item-source strong {
+  font-weight: 600;
+  color: var(--text-2);
+}
+
+.vp-doc .news-item p:has(> img),
+.vp-doc .news-item > p > img {
+  display: block;
+  width: 100%;
+  max-width: 640px;
+  height: auto;
+  margin: var(--space-3) 0 0;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+/* 资讯日报条目配图（旧 h3 结构兼容） */
+.vp-doc h3 + p > img,
+.vp-doc h3 + img {
+  display: block;
+  width: 100%;
+  max-width: 640px;
+  height: auto;
+  margin: 8px 0 12px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.vp-doc h3:has(+ p > img),
+.vp-doc h3:has(+ img) {
+  margin-top: var(--space-6);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border);
+}
+
+.vp-doc h2 + h3:has(+ p > img),
+.vp-doc h2 + h3:has(+ img) {
+  margin-top: var(--space-4);
+  padding-top: 0;
+  border-top: none;
+}
+
 /* 课程：统一间距 */
 .course-parts {
   display: flex;
